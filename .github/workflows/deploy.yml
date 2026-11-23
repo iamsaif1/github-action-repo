@@ -7,7 +7,7 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu:latest
+        runs-on: ubuntu-latest
 
         steps:
             - name: Checkout Repo #ALWAYS this first step
@@ -31,7 +31,8 @@ jobs:
                 #push: true
                 #tags: ${{ secrets.DOCKER_USERNAME }} my-webpage:latest
     deploy:
-        runs-on: build
+        needs: build
+        runs-on: ubuntu-latest
 
         steps:  
             - name: Deploy to EC2 Instance via SSH
@@ -40,14 +41,18 @@ jobs:
                 host: ${{ secrets. EC2_IP }}
                 username: ${{ secrets.EC2_USER }}
                 password: ${{ secrets.EC2_SSH_KEY}}
+                script: |
+                    docker pull saif007alam/webpage:latest
+                    docker rm -f webpage-container || true
+                    docker run -d -p 80:80 --name webpage-container saif007alam/webpage:latest
             
-            - name: Pull Image from Docker
-              run: docker pull saif007alam/webpage:latest
+            #- name: Pull Image from Docker
+              #run: docker pull saif007alam/webpage:latest
 
-            - name: Remove any old container
-              run: docker rm -f webpage
+            #- name: Remove any old container
+              #run: docker rm -f webpage
             
-            - name: Run Docker Container
-              run: docker run -d -p 80:80 -name webpage-container saif007alam/webpage:latest
+            #- name: Run Docker Container
+              #run: docker run -d -p 80:80 -name webpage-container saif007alam/webpage:latest
             
 
