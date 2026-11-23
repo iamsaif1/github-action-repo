@@ -40,7 +40,7 @@ jobs:
               with:
                 host: ${{ secrets. EC2_IP }}
                 username: ${{ secrets.EC2_USER }}
-                password: ${{ secrets.EC2_SSH_KEY}}
+                key: ${{ secrets.EC2_SSH_KEY}}
                 script: |
                     docker pull saif007alam/webpage:latest
                     docker rm -f webpage-container || true
