@@ -1,1 +1,1 @@
-this is test file to create docker image and sendnit to docker server.
+this is test file to create docker image and send it to docker server.
