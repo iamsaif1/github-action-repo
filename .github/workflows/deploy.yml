@@ -26,7 +26,7 @@ jobs:
 
             - name: Publish and Push image to docker hub
               #run: docker push saif007alam/webpage:latest
-              run: docker push saif007alam/test-file:latest txt
+              run: docker push saif007alam/test-file:latest
             #uses: docker/build-push-action@v4
               #with:
                 #context: .
@@ -48,9 +48,9 @@ jobs:
                     #docker rm -f webpage-container || true
                     #docker run -d -p 80:80 --name webpage-container saif007alam/webpage:latest
                     |
-                    docker pull saif007alam/test-file:latest txt
+                    docker pull saif007alam/test-file:latest
                     docker rm -f test-file-container || true
-                    docker run -d --name text-file-container saif007alam/test-file:latest txt
+                    docker run -d --name text-file-container saif007alam/test-file:latest
             
             #- name: Pull Image from Docker
               #run: docker pull saif007alam/webpage:latest
