@@ -1,9 +1,9 @@
-name: Build and Deploy to EC2 via GitHub Action
-
+name: #Build and Deploy to EC2 via GitHub Action
+      Build Docker Image file and Copy TXT file to Docker Server via Github Action
 on:
  push:
     branches: 
-        - main
+        - testbranch
 
 jobs:
     build:
@@ -21,10 +21,12 @@ jobs:
                 #password: ${{ secrets.DOCKER_PASSWORD }}
 
             - name: Build and Push Docker Image
-              run: docker build -t saif007alam/webpage . # it builds the docker image of webpage to docker hub
-            
+              #run: docker build -t saif007alam/webpage .  # it builds the docker image of webpage to docker hub
+              run: docker build -t saif007alam/test-file .
+
             - name: Publish and Push image to docker hub
-              run: docker push saif007alam/webpage:latest
+              #run: docker push saif007alam/webpage:latest
+              run: docker push saif007alam/test-file:latest
             #uses: docker/build-push-action@v4
               #with:
                 #context: .
@@ -41,10 +43,13 @@ jobs:
                 host: ${{ secrets. EC2_IP }}
                 username: ${{ secrets.EC2_USER }}
                 key: ${{ secrets.EC2_SSH_KEY}}
-                script: |
-                    docker pull saif007alam/webpage:latest
-                    docker rm -f webpage-container || true
-                    docker run -d -p 80:80 --name webpage-container saif007alam/webpage:latest
+                script: #|
+                    #docker pull saif007alam/webpage:latest
+                    #docker rm -f webpage-container || true
+                    #docker run -d -p 80:80 --name webpage-container saif007alam/webpage:latest
+                    |
+                    docker pull saif007alam/test-file:latest
+                    docker run -d --name text-file-container- saif007alam/test-file:latest
             
             #- name: Pull Image from Docker
               #run: docker pull saif007alam/webpage:latest
